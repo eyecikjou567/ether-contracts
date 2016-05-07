@@ -107,6 +107,9 @@ contract CoinJoin {
     
     //Pull out of the contract
     function PullValue ( ) {
+        if (msg.gas < 100000) {
+            throw;
+        }
         if (dead || !beginSigning) {
             msg.sender.send(inputs[msg.sender]);
             discrepancyValue -= inputs[msg.sender];
